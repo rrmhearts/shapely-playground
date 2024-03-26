@@ -12,13 +12,17 @@ def polygonToPoints(polygon: Polygon):
     # Mind that the above output will contain one point two times, the first and last points
     return poly_[:-1]
 
+def pointToCoordinate(point: Point):
+    return tuple(point.coords)[0]
+    try:
+        return (point.x, point.y, point.z)
+    except shapely.errors.DimensionError:
+        return (point.x, point.y)
+
 def polygonToEdges(polygon: Polygon):
     b = polygon.boundary.coords
     linestrings = [LineString(b[k:k+2]) for k in range(len(b) - 1)]
     return [list(ls.coords) for ls in linestrings]
-
-def edgesToPolygon(edges: Union[tuple, list]):
-    pass
 
 def coordsToArea(coords: Union[tuple, list]):
     polygon = Polygon(coords)
@@ -37,6 +41,8 @@ if __name__ == '__main__':
     print(json.dumps(poly_))
     print(f"List of points in Polygon: {poly_}")
 
+    p1 = Point([1.2, 3.4, 5.6])
+    print(f"Point to coord: {pointToCoordinate(p1)}")
     poly_from_points = Polygon(poly_)
 
     poly = Polygon([[0, 0], [1, 0], [1, 1], [0, 0]])
