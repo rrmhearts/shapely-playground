@@ -6,7 +6,7 @@ from shapely import wkt, polygonize
 from typing import Union
 
 def polygonToPoints(polygon: Polygon):
-    poly_coordinates = mapping(poly)['coordinates'][0]
+    poly_coordinates = mapping(polygon)['coordinates'][0]
     # poly_ = [{'lat': coords[1],'lon': coords[0]} for coords in poly_coordinates]
     poly_ = [(coords[0], coords[1]) for coords in poly_coordinates]
     # Mind that the above output will contain one point two times, the first and last points
